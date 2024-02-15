@@ -91,7 +91,7 @@ pipeline{
                         artifacts: [
                             [artifactId: "${configMap.component}",
                             classifier: '',
-                            file: "${configMap.component}".zip,
+                            file: "${configMap.component}.zip",
                             type: 'zip']
                         ]
                 )
@@ -106,7 +106,7 @@ pipeline{
             }
 
             steps {
-                build job: 'catalogue-deploy', wait: true , parameters: [
+                build job: "../${configMap.component}-deploy", wait: true , parameters: [
                 string(name: 'version', value: "$packageVersion"),
                 string(name: 'environment', value: "dev"),
                 ]
