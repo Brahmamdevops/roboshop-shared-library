@@ -101,7 +101,7 @@ pipeline{
          stage ('Deploy Invoke_pipelineA') {
              when {
                 expression{
-                    params.Deploy == 'true'
+                    params.Deploy
                 }
             }
 
