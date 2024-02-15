@@ -9,7 +9,8 @@ pipeline{
     
      environment { 
         packageVersion = ""
-        nexusUrl ="172.31.5.38:8081"
+        //this nexusURL taking from pipelinegolbals
+        // nexusUrl ="172.31.5.38:8081"
     }
 
     options {
@@ -61,7 +62,7 @@ pipeline{
         stage('Sonar Scan') {
             steps {
                 sh """
-                    echo : "sonar-scanner "
+                    echo : "sonar-scan"
                 """
             }
         }
@@ -82,15 +83,15 @@ pipeline{
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'http',
-                    nexusUrl: "${nexusUrl}",
+                    nexusUrl: pipelinegolbals.nexusURL(),
                     groupId: 'com.roboshop',
                     version: "${packageVersion}",
-                    repository: 'catalogue',
+                    repository: "${configMap.component}",
                     credentialsId: 'nexus-auth',
                         artifacts: [
-                            [artifactId: 'catalogue',
+                            [artifactId: "${configMap.component}",
                             classifier: '',
-                            file: 'catalogue.zip',
+                            file: "${configMap.component}".zip,
                             type: 'zip']
                         ]
                 )
