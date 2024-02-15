@@ -83,7 +83,7 @@ pipeline{
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'http',
-                    nexusUrl: pipelineGolbals.nexusURL(),
+                    nexusUrl: pipelineGlobals.nexusURL(),
                     groupId: 'com.roboshop',
                     version: "${packageVersion}",
                     repository: "${configMap.component}",
